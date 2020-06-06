@@ -22,13 +22,13 @@ library(ggplot2)
 dev.new(din=c(480, 800)) # avoiding the R studio plot viewer.
 this_device <- dev.cur()
 
-to_plot <- NEI
+to_plot <- NEI[NEI$fips == "24510", ]
 to_plot <- select(.data = to_plot, year, type, Emissions)
 # to_plot <- tapply(X = to_plot$Emissions, INDEX = to_plot$year, FUN = sum, na.rm = TRUE )
 to_plot <- group_by(.data = to_plot, year, type) %>% summarise_all(.funs = sum)
 # View(head(to_plot))
 this_plot <- qplot(x = year , y = Emissions, data = to_plot, facets = . ~ type, geom = c("point", "smooth"))
-this_plot <- this_plot + labs(title = "Total Emmissions / Year for each device TYPE", y = "Emmissions in TON")
+this_plot <- this_plot + labs(title = "Total.Emmissions/Year for each device TYPE - Baltimore.City@Maryland(fips:'24510')", y = "Emmissions in TON")
 this_plot
 
 ## FINAL STEPS ... COPYING THE PLOTS AND CLOSING THE DEVICES

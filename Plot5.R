@@ -24,12 +24,12 @@ dev.new(din=c(480, 480)) # avoiding the R studio plot viewer.
 this_device <- dev.cur()
 
 vehicle_source_df <- SCC[grep("[Vv]ehicle", SCC$EI.Sector), ]
-to_plot <- NEI[NEI$SCC %in% vehicle_source_df$SCC , ]
+to_plot <- NEI[NEI$SCC %in% vehicle_source_df$SCC &  NEI$fips == "24510" , ]
 to_plot <- select(.data = to_plot, year, Emissions)
 to_plot <- group_by(.data = to_plot, year) %>% summarise_all(.funs = sum)
 # View(head(to_plot))
 this_plot <- ggplot(data = to_plot, aes(x = year , y = Emissions))
-this_plot <- this_plot + geom_point() + geom_smooth(method = "lm") + labs(title = "Total Emmissions / Year for MOTOR Vehicle sources", y = "Emmissions in TONs")
+this_plot <- this_plot + geom_point() + geom_smooth(method = "lm") + labs(title = "Total.Emmissions/Year for MOTOR Vehicle sources Baltimore.City@Maryland(fips:'24510')", y = "Emmissions in TONs")
 this_plot
 ## FINAL STEPS ... COPYING THE PLOTS AND CLOSING THE DEVICES
 ggsave(filename = "plot5.png", device = png(width = 480, height=480), plot = this_plot)
